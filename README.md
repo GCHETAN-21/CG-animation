@@ -61,3 +61,38 @@ void display() {
 
     glutSwapBuffers();
 }
+// Keyboard control
+void keyboard(unsigned char key, int x, int y) {
+    switch (key) {
+        case 'a': case 'A':
+            carPosX -= 0.05f;
+            break;
+        case 'd': case 'D':
+            carPosX += 0.05f;
+            break;
+    }
+    glutPostRedisplay();
+}
+
+// Init OpenGL
+void init() {
+    glClearColor(0.5f, 0.8f, 1.0f, 1.0f); // Sky blue
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-1.0, 1.0, -0.5, 1.0); // 2D view
+}
+
+// Main function
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(800, 600);
+    glutCreateWindow("Car Moving on a Road");
+
+    init();
+    glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
+    glutMainLoop();
+    return 0;
+}
